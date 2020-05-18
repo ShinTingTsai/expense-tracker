@@ -1,8 +1,11 @@
 // use express
-const express = require("express");
+const express = require("express")
+
+
 const app = express();
 const port = 3000;
 
+require("./config/mongoose");
 
 // setup req and res
 // render
