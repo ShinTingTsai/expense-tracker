@@ -2,6 +2,7 @@
 const express = require("express")
 const exphbs = require('express-handlebars')
 const bodyParser = require("body-parser")
+const record = require('./Models/record')
 
 const app = express();
 const port = 3000;
@@ -15,7 +16,11 @@ require("./config/mongoose");
 // setup req and res
 // render
 app.get('/', (req, res) => {
-  res.render("index")
+  record.find()
+    .lean()
+    .sort({ date: 'asc' })
+    .then(record => res.render("index", { record }))
+    .catch(error => console.log(error))
 })
 
 // app.listen

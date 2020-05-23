@@ -1,1 +1,19 @@
 <h5>Household Budget Book</h5>
+
+<ul>
+  {{#each record}}
+  <li>
+    {{this.category}}
+    {{this.name}}
+    {{this.date}}
+    {{this.amount}}
+
+  {{!-- name: { type: String },
+  category: { type: Number },
+  date: { type: String },
+  amount: { type: Number } --}}
+
+
+  </li>
+  {{/each}}
+</ul>

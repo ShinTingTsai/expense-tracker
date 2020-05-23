@@ -4,6 +4,6 @@ const categories = ['家居物業', '交通出行', '休閒娛樂', '餐飲食�
 
 db.once('open', () => {
   Category.insertMany(categories).then(
-    console.log('Category seeds are created')
+    console.log('Categories are created')
   )
 })
