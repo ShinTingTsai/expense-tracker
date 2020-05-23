@@ -19,7 +19,10 @@ app.get('/', (req, res) => {
   record.find()
     .lean()
     .sort({ date: 'asc' })
-    .then(record => res.render("index", { record }))
+    .then(records => {
+      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
+      res.render("index", { records, totalAmount })
+    })
     .catch(error => console.log(error))
 })
 

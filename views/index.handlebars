@@ -1,7 +1,7 @@
 <h5>Household Budget Book</h5>
-
+<h5>Total amount: {{totalAmount}}</h5>
 <ul>
-  {{#each record}}
+  {{#each records}}
   <li>
     {{this.category}}
     {{this.name}}
@@ -12,6 +12,7 @@
   category: { type: Number },
   date: { type: String },
   amount: { type: Number } --}}
+  
 
 
   </li>
