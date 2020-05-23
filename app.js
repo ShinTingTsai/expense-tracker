@@ -1,14 +1,16 @@
 // use express
 const express = require("express")
 const exphbs = require('express-handlebars')
+const bodyParser = require("body-parser")
 
 const app = express();
 const port = 3000;
 // setup template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
-
+app.use(bodyParser.urlencoded({ extended: true }));
 require("./config/mongoose");
+
 
 // setup req and res
 // render
