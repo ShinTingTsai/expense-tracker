@@ -1,0 +1,37 @@
+<h5>Household Budget Book</h5>
+
+<div class="row mb-3">
+  <label for="category" class="col-sm-2 col-form-label">category</label>
+  <div class="input-group col-sm-4">
+    <select id="category" class="form-control" name="category">
+      {{#each categoryList}}
+      <option value={{@index}}>{{this}}</option>
+      {{/each}}
+    </select>
+  </div>
+</div>
+
+<h5>Total amount: {{totalAmount}}</h5>
+
+
+
+
+<ul>
+ 
+  {{#each records}}
+  <li>
+
+    {{this.category}}
+    {{this.name}}
+    {{this.date}}
+    {{this.amount}}
+
+  {{!-- name: { type: String },
+  category: { type: Number },
+  date: { type: String },
+  amount: { type: Number } --}}
+
+  </li>
+  {{/each}}
+</ul>
+<a href="./records/new">Create (新增支出)</a>
