@@ -17,7 +17,10 @@ app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes)
 
-
+// const handlebars = require('handlebars')
+// handlebars.registerHelper('equal', function(item1, item2, options) {
+//   return (item1 == item2) ? options.fn(this) : options.inverse(this)
+// })
 
 // app.get('/', (req, res) => {
 //   //從資料庫取得所有類別(categoryList)，帶入前端產生類別清單

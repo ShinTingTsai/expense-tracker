@@ -4,6 +4,9 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
+
+
+
 // Create
 router.get('/new', (req, res) => {
   let categoryList = new Array()
@@ -24,9 +27,47 @@ router.post('/create', (req, res) => {
     .catch((error) => console.error(error))
 })
 
-// Read Single
+// Edit
+router.get('/:id/edit', (req, res) => {
+  const id = req.params.id
+  console.log('id', id)
+  let categoryList = new Array()
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => {
+      categories.forEach(category => {
+        categoryList.push({
+          name: category.name
+        })
+      })
+    })
+    .catch(error => console.log(error))
+  return Record.findById(id)
+    .lean()
+    .then((record) => {
+      categoryList[record.category].check = true
+      res.render('edit', { record, categoryList })
+    })
+    .catch((error) => console.error(error))
+})
 
-// Update
+router.post('/:id', (req, res) => {
+
+  const id = req.params.id
+  console.log('req.p', req.params)
+  console.log('req.body', req.body)
+
+  return Record.findById(id)
+    .then((record) => {
+      record = Object.assign(record, req.body)
+      return record.save()
+    })
+    .then(() => res.redirect(`/`))
+    .catch((error) => console.error(error))
+})
+
+
 
 // Delete
 
