@@ -6,8 +6,8 @@ const Category = require('../../models/category')
 
 // Read all
 router.get('/', (req, res) => {
-  //從資料庫取得所有類別(categoryList)，帶入前端產生類別清單
-  let categoryList = new Array()
+  // 從資料庫取得所有類別(categoryList)，帶入前端產生類別清單
+  const categoryList = new Array()
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
     .sort({ date: 'asc' })
     .then(records => {
       const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
-      res.render("index", { records, totalAmount, categoryList })
+      res.render('index', { records, totalAmount, categoryList })
     })
     .catch(error => console.log(error))
 })
@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
 router.get('/filter/:keyword', (req, res) => {
   const keyword = req.params.keyword
   const condition = (keyword === '-1') ? {} : { category: keyword }
-  let categoryList = new Array()
+  const categoryList = new Array()
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
@@ -57,8 +57,6 @@ router.get('/filter/:keyword', (req, res) => {
       res.render('index', { records, totalAmount, categoryList })
     })
 })
-
-
 
 // 匯出路由模組
 module.exports = router

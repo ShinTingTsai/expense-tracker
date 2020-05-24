@@ -4,9 +4,6 @@ const router = express.Router()
 const Record = require('../../models/record')
 const Category = require('../../models/category')
 
-
-
-
 // Create
 router.get('/new', (req, res) => {
   let categoryList = new Array()
@@ -30,7 +27,7 @@ router.post('/create', (req, res) => {
 // Edit
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  let categoryList = new Array()
+  const categoryList = new Array()
   Category.find()
     .lean()
     .sort({ _id: 'asc' })
@@ -52,18 +49,17 @@ router.get('/:id/edit', (req, res) => {
 })
 
 router.put('/:id', (req, res) => {
-
   const id = req.params.id
   return Record.findById(id)
     .then((record) => {
       record = Object.assign(record, req.body)
       return record.save()
     })
-    .then(() => res.redirect(`/`))
+    .then(() => res.redirect('/'))
     .catch((error) => console.error(error))
 })
 
-//Delete
+// Delete
 router.delete('/:id', (req, res) => {
   const id = req.params.id
   return Record.findById(id)
