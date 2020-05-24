@@ -30,7 +30,6 @@ router.post('/create', (req, res) => {
 // Edit
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
-  console.log('id', id)
   let categoryList = new Array()
   Category.find()
     .lean()
@@ -52,12 +51,9 @@ router.get('/:id/edit', (req, res) => {
     .catch((error) => console.error(error))
 })
 
-router.post('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
 
   const id = req.params.id
-  console.log('req.p', req.params)
-  console.log('req.body', req.body)
-
   return Record.findById(id)
     .then((record) => {
       record = Object.assign(record, req.body)
