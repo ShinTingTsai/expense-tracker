@@ -26,7 +26,10 @@
     {{this.date}}
     {{this.amount}}
     <a href="./records/{{ this._id }}/edit">Edit</a>
-  
+    <form action="/records/{{ this._id }}?_method=DELETE" method="POST" onsubmit="return confirm('確定要刪除嗎？')">
+
+      <button type="submit">Delete</button>
+    </form>
 
   {{!-- name: { type: String },
   category: { type: Number },
