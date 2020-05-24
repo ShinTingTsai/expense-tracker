@@ -10,13 +10,19 @@ function getStr(num) {
 
 
 db.once('open', () => {
+  const promises = []
   for (let i = 0; i < 10; i++) {
-    Record.create({
-      name: 'name-' + i,
-      category: i % 5,
-      date: '2020-' + getStr(12) + '-' + getStr(30),
-      amount: Math.floor(Math.random() * 100)
-    })
+    promises.push(
+      Record.create({
+        name: 'name-' + i,
+        category: i % 5,
+        date: '2020-' + getStr(12) + '-' + getStr(30),
+        amount: Math.floor(Math.random() * 100)
+      })
+    )  
   }
-  console.log('Records are created')
+  Promise.all(promises).then(() => {
+    console.log('Records are created')
+    db.close()
+  })
 })

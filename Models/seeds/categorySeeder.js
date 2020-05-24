@@ -14,7 +14,8 @@ categories.map(category => {
 })
 
 db.once('open', () => {
-  Category.insertMany(categories).then(
+  Category.insertMany(categories).then(() => {
     console.log('Categories are created')
-  )
+    db.close()
+  })
 })
