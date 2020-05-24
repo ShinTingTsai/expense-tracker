@@ -35,8 +35,6 @@ router.get('/', (req, res) => {
 router.get('/filter/:keyword', (req, res) => {
   const keyword = req.params.keyword
   const condition = (keyword === '-1') ? {} : { category: keyword }
-  console.log('keyword', keyword)
-
   let categoryList = new Array()
   Category.find()
     .lean()
