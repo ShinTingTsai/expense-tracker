@@ -3,29 +3,29 @@
 <div class="row mb-3">
   <label for="category" class="col-sm-2 col-form-label">category</label>
   <div class="input-group col-sm-4">
-    <select id="category" class="form-control" name="category">
+    <select id="category" class="form-control" name="category" onchange="location=this.value">
+      <option value='/filter/-1'>Select a category</option>
       {{#each categoryList}}
-      <option value={{@index}}>{{this}}</option>
+      <option value='/filter/{{@index}}' {{#if this.check}} selected {{/if}}>{{this.name}}</option>
       {{/each}}
     </select>
   </div>
 </div>
 
+
+
 <h5>Total amount: {{totalAmount}}</h5>
-
-
 
 
 <ul>
  
   {{#each records}}
   <li>
-
     {{this.category}}
     {{this.name}}
     {{this.date}}
     {{this.amount}}
-    <a href="./records/{{ this._id }}/edit">Edit</a>
+    <a href="/records/{{ this._id }}/edit">Edit</a>
     <form action="/records/{{ this._id }}?_method=DELETE" method="POST" onsubmit="return confirm('確定要刪除嗎？')">
 
       <button type="submit">Delete</button>
@@ -39,4 +39,4 @@
   </li>
   {{/each}}
 </ul>
-<a href="./records/new">Create (新增支出)</a>
+<a href="/records/new">Create (新增支出)</a>

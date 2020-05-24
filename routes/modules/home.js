@@ -12,14 +12,13 @@ router.get('/', (req, res) => {
     .lean()
     .sort({ _id: 'asc' })
     .then(categories => {
-      categoryList = categories.map(category => category.name)
-      // categories.forEach(category => {
-      //   categoryList.push({
-      //     name: category.name,
-      //     value: categories.indexOf(category)
-      //   })
-      // })
-      // console.log('categoryList',categoryList)
+      // categoryList = categories.map(category => category.name)
+      categories.forEach(category => {
+        categoryList.push({
+          name: category.name
+          // value: categories.indexOf(category)
+        })
+      })
     })
     .catch(error => console.log(error))
   Record.find()
@@ -32,7 +31,34 @@ router.get('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-//Filter
+// Filter
+router.get('/filter/:keyword', (req, res) => {
+  const keyword = req.params.keyword
+  const condition = (keyword === '-1') ? {} : { category: keyword }
+  console.log('keyword', keyword)
+
+  let categoryList = new Array()
+  Category.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => {
+      // categoryList = categories.map(category => category.name)
+      categories.forEach(category => {
+        categoryList.push({
+          name: category.name
+          // value: categories.indexOf(category)
+        })
+      })
+    })
+    .catch(error => console.log(error))
+  return Record.find(condition)
+    .lean()
+    .then((records) => {
+      if (keyword !== '-1') categoryList[keyword].check = true
+      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
+      res.render('index', { records, totalAmount, categoryList })
+    })
+})
 
 
 
