@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 // 引用  model
-const Record = require('../../models/record')
-const Category = require('../../models/category')
+const Record = require('../../models2/record')
+const Category = require('../../models2/category')
 
 // Read all
 router.get('/', (req, res) => {
