@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
     .lean()
     .sort({ date: 'asc' })
     .then(records => {
-      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
+      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
       res.render('index', { records, totalAmount, categoryList })
     })
     .catch(error => console.log(error))
