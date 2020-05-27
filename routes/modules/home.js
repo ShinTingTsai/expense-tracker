@@ -63,26 +63,52 @@ router.get('/filter/:keyword', (req, res) => {
   const keyword = req.params.keyword
   const condition = (keyword === '-1') ? {} : { category: keyword }
   const categoryList = new Array()
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      // categoryList = categories.map(category => category.name)
-      categories.forEach(category => {
-        categoryList.push({
-          name: category.name
-          // value: categories.indexOf(category)
+  const promises = []
+  promises.push(
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        // categoryList = categories.map(category => category.name)
+        categories.forEach(category => {
+          categoryList.push({
+            name: category.name
+            // value: categories.indexOf(category)
+          })
         })
       })
-    })
-    .catch(error => console.log(error))
-  return Record.find(condition)
-    .lean()
-    .then((records) => {
-      if (keyword !== '-1') categoryList[keyword].check = true
-      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
-      res.render('index', { records, totalAmount, categoryList })
-    })
+      .catch(error => console.log(error))
+  )
+  return Promise.all(promises).then(() => {
+    Record.find(condition)
+      .lean()
+      .then((records) => {
+        if (keyword !== '-1') categoryList[keyword].check = true
+        const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
+        res.render('index', { records, totalAmount, categoryList })
+      })
+  })
+
+  // Category.find()
+  //   .lean()
+  //   .sort({ _id: 'asc' })
+  //   .then(categories => {
+  //     // categoryList = categories.map(category => category.name)
+  //     categories.forEach(category => {
+  //       categoryList.push({
+  //         name: category.name
+  //         // value: categories.indexOf(category)
+  //       })
+  //     })
+  //   })
+  //   .catch(error => console.log(error))
+  // return Record.find(condition)
+  //   .lean()
+  //   .then((records) => {
+  //     if (keyword !== '-1') categoryList[keyword].check = true
+  //     const totalAmount = records.map(record => record.amount).reduce((prev, curr) => prev + curr)
+  //     res.render('index', { records, totalAmount, categoryList })
+  //   })
 })
 
 // 匯出路由模組

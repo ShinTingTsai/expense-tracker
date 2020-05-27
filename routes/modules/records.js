@@ -28,24 +28,47 @@ router.post('/create', (req, res) => {
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
   const categoryList = new Array()
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      categories.forEach(category => {
-        categoryList.push({
-          name: category.name
+  const promises = []
+  promises.push(
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        categories.forEach(category => {
+          categoryList.push({
+            name: category.name
+          })
         })
       })
-    })
-    .catch(error => console.log(error))
-  return Record.findById(id)
-    .lean()
-    .then((record) => {
-      categoryList[record.category].check = true
-      res.render('edit', { record, categoryList })
-    })
-    .catch((error) => console.error(error))
+      .catch(error => console.log(error))
+  )
+  return Promise.all(promises).then(() => {
+    Record.findById(id)
+      .lean()
+      .then((record) => {
+        categoryList[record.category].check = true
+        res.render('edit', { record, categoryList })
+      })
+      .catch((error) => console.error(error))
+  })
+  // Category.find()
+  //   .lean()
+  //   .sort({ _id: 'asc' })
+  //   .then(categories => {
+  //     categories.forEach(category => {
+  //       categoryList.push({
+  //         name: category.name
+  //       })
+  //     })
+  //   })
+  //   .catch(error => console.log(error))
+  // return Record.findById(id)
+  //   .lean()
+  //   .then((record) => {
+  //     categoryList[record.category].check = true
+  //     res.render('edit', { record, categoryList })
+  //   })
+  //   .catch((error) => console.error(error))
 })
 
 router.put('/:id', (req, res) => {
