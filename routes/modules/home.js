@@ -8,27 +8,54 @@ const Category = require('../../models/category')
 router.get('/', (req, res) => {
   // 從資料庫取得所有類別(categoryList)，帶入前端產生類別清單
   const categoryList = new Array()
-  Category.find()
-    .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      // categoryList = categories.map(category => category.name)
-      categories.forEach(category => {
-        categoryList.push({
-          name: category.name
-          // value: categories.indexOf(category)
+  const promises = []
+  promises.push(
+    Category.find()
+      .lean()
+      .sort({ _id: 'asc' })
+      .then(categories => {
+        // categoryList = categories.map(category => category.name)
+        categories.forEach(category => {
+          categoryList.push({
+            name: category.name
+            // value: categories.indexOf(category)
+          })
         })
       })
-    })
-    .catch(error => console.log(error))
-  Record.find()
-    .lean()
-    .sort({ date: 'asc' })
-    .then(records => {
-      const totalAmount = records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
-      res.render('index', { records, totalAmount, categoryList })
-    })
-    .catch(error => console.log(error))
+      .catch(error => console.log(error))
+  )
+  Promise.all(promises).then(() => {
+    Record.find()
+      .lean()
+      .sort({ date: 'asc' })
+      .then(records => {
+        const totalAmount = records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
+        res.render('index', { records, totalAmount, categoryList })
+      })
+      .catch(error => console.log(error))
+  })
+
+  // Category.find()
+  //   .lean()
+  //   .sort({ _id: 'asc' })
+  //   .then(categories => {
+  //     // categoryList = categories.map(category => category.name)
+  //     categories.forEach(category => {
+  //       categoryList.push({
+  //         name: category.name
+  //         // value: categories.indexOf(category)
+  //       })
+  //     })
+  //   })
+  //   .catch(error => console.log(error))
+  // Record.find()
+  //   .lean()
+  //   .sort({ date: 'asc' })
+  //   .then(records => {
+  //     const totalAmount = records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
+  //     res.render('index', { records, totalAmount, categoryList })
+  //   })
+  //   .catch(error => console.log(error))
 })
 
 // Filter
