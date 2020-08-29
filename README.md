@@ -3,6 +3,13 @@
 一個使用Express 與 Node.js + Express-Handlebars + Mongodb 開發的記帳本小程式
 [DEMO](https://enigmatic-hollows-44583.herokuapp.com/)
 
+## 介面 (Snapshot)
+![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_reg.png)
+![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_home.png)
+![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_edit.png)
+![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_logout.png)
+
+
 ## 功能 (Features)
 
 - 在首頁一次瀏覽所有支出的清單
