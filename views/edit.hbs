@@ -18,6 +18,14 @@
     </div>
     <div class="row justify-content-center my-3">
       <div class="col-sm-2">
+        <label for="merchant" class="col-sm-2 col-form-label">Merchant</label>
+      </div>
+      <div class="input-group col-sm-4">
+        <input type="text" class="form-control" aria-label="merchant" name="merchant" value="{{record.merchant}}">
+      </div>
+    </div>
+    <div class="row justify-content-center my-3">
+      <div class="col-sm-2">
         <label for="date" class="col-sm-2 col-form-label">Date</label>
       </div>
       <div class="input-group col-sm-4">
@@ -30,7 +38,7 @@
     </div>
     <div class="row justify-content-center my-3">
       <div class="col-sm-2">
-        <label for="category" class="col-sm-2 col-form-label">category</label>
+        <label for="category" class="col-sm-2 col-form-label">Category</label>
       </div>
       <div class="input-group col-sm-4">
         <select id="category" class="form-control" name="category">
@@ -42,7 +50,7 @@
     </div>
     <div class="row justify-content-center my-3">
       <div class="col-sm-2">
-        <label for="amount" class="col-sm-2 col-form-label">amount</label>
+        <label for="amount" class="col-sm-2 col-form-label">Amount</label>
       </div>
       <div class="input-group col-sm-4">
         <input type="text" class="form-control" placeholder="100" aria-label="amount" name='amount' value={{record.amount}}>

@@ -5,9 +5,11 @@ const home = require('./modules/home')
 const records = require('./modules/records')
 const users = require('./modules/users')
 const auth = require('./modules/auth')
+const filter = require('./modules/filter')
 // 掛載 middleware
 const { authenticator } = require('../middleware/auth')
 
+router.use('/filter', filter)
 router.use('/users', users)
 router.use('/records', authenticator, records)
 router.use('/auth', auth)

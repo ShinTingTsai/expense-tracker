@@ -16,7 +16,7 @@ const seeduser =
 
 function getStr (num) {
   let str = Math.ceil(Math.random() * num).toString()
-  if (str.length < 2) str = '0' + str
+  // if (str.length < 2) str = '0' + str
   return str
 }
 
@@ -43,14 +43,15 @@ db.once('open', () => {
       (_, i) => Record.create({
         name: 'name-' + i,
         category: i % 5,
-        date: '2020-' + getStr(12) + '-' + getStr(30),
+        date: `2020-${getStr(12)}-${getStr(30)}`,
         amount: Math.floor(Math.random() * 100),
+        merchant: 'store-' + i,
         userId
       })
     ))
       .catch(err => console.log(err))
   }
-  
+
   async function createData (user) {
     try {
       const userId = await createUser(user)
@@ -63,7 +64,8 @@ db.once('open', () => {
   createData(seeduser)
     .then(() => {
       db.close()
-      console.log('Records are created, DB closed.')
+      console.log('Records are created.')
+      console.log('DB closed.')
       process.exit()
     })
     .catch(err => console.log(err))

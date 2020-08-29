@@ -2,11 +2,26 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const recordSchema = new Schema({
-  name: { type: String },
-  category: { type: Number },
-  date: { type: String },
-  amount: { type: Number },
-  store: { type: String },
+  name: {
+    type: String,
+    required: true
+  },
+  category: {
+    type: Number,
+    required: false
+  },
+  date: {
+    type: Date,
+    required: true
+  },
+  amount: {
+    type: Number,
+    required: true
+  },
+  merchant: {
+    type: String,
+    required: false
+  },
   userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
