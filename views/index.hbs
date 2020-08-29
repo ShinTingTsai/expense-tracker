@@ -1,83 +1,84 @@
+
 <div class="container">
-  <div class="row justify-content-center my-3">
-    <div class="col-4">
-      <form action="/filter" method="GET">
-        <div class="input-group">
-          <select name="month" id="month" class="form-control btn btn-info" onchange="Submit">
-            <option value='all'>Select a month</option>
-            {{#each monthList}}
-            <option value='{{this.value}}' {{#if this.check}} selected {{/if}}>{{this.name}}</option>
-            {{/each}}
-          </select>
+  <div class="row" >
+    <div class="col-3 mt-5"  >
+      <div>
+        <h5>Total:</h5>
+      </div>
+      <div style="text-align: center;">
+        <h1>${{totalAmount}}</h1>
+      </div>
+      <div class="mt-5" style="text-align: center;">
+        <a class="btn btn-primary" href="/records/new" role="button" >Create (新增支出)</a>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="row justify-content-center my-2" >
+        <form action="/filter" method="GET" class="form-inline">
+          <div class="input-group col-5">
+            <select name="month" id="month" class="form-control btn btn-outline-secondary" >
+              <option value='all'>Select a month</option>
+              {{#each monthList}}
+              <option value='{{this.value}}' {{#if this.check}} selected {{/if}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="input-group col-5">
+            <select name="category" id="category" class="form-control btn btn-outline-secondary">
+              <option value='all'>Select a category</option>
+              {{#each categoryList}}
+              <option value='{{@index}}' {{#if this.check}} selected {{/if}}>{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-primary" type="submit" style="width: 100px;">Filter</button>
+          </div>
+        </form>
+      </div>
 
-          <select name="category" id="category" class="form-control btn btn-info" onchange="Submit">
-            <option value='all'>Select a category</option>
-            {{#each categoryList}}
-            <option value='{{@index}}' {{#if this.check}} selected {{/if}}>{{this.name}}</option>
-            {{/each}}
-          </select>
 
-        </div>
-        <div class="input-group col-6">
-          
-        </div>
-        <button class="btn btn-outline-secondary btn-block mt-4" type="submit">Submit</button>
-      </form>
-    </div>
-    <div class="col-3 row justify-content-center">
-      
-        <a class="btn btn-warning" href="/records/new" role="button" style="border: 1px solid gray">Create (新增支出)</a>
-      
-    </div>
-  </div>
-
-
-  <div class="row justify-content-center">
-    <div class="col-2">
-      <h5>Total:</h5>
-    </div>
-    <div class="col-2">
-      <h1 >{{totalAmount}}</h1>
-    </div>
-  </div>
-  {{!-- <div class="row justify-content-center">
-    <div class="col-8 mt-3" style="text-align:right;">
-      <a class="btn btn-warning" href="/records/new" role="button" style="border: 1px solid gray">Create (新增支出)</a>
-    </div>
-  </div> --}}
-  <div class="row justify-content-center ">
-    <ul class="col-8 list-group">
-      {{#each records}}
-      <li class="list-group-item ">
-        <ul class="list-group list-group-horizontal " > 
-          <li class="col-2 list-group-item align-self-center " style="border: 0px; text-align:right">
-            {{#equal this.category 0}} <i class="fas fa-home fa-2x"></i> {{/equal}}
-            {{#equal this.category 1}} <i class="fas fa-shuttle-van fa-2x"></i> {{/equal}}
-            {{#equal this.category 2}} <i class="fas fa-grin-beam fa-2x"></i> {{/equal}}
-            {{#equal this.category 3}} <i class="fas fa-utensils fa-2x"></i> {{/equal}}
-            {{#equal this.category 4}} <i class="fas fa-pen fa-2x"></i> {{/equal}}
+      <div class="row justify-content-center">
+        <ul class="col list-group">
+          {{#each records}}
+          <li class="list-group-item" style="border: 0px">
+            <ul class="list-group list-group-horizontal" style="border: solid 1px rgb(126, 126, 126);">
+              <li class="col list-group-item align-self-center mt-2" style="text-align: center; border: 0px;">
+                {{#equal this.category 0}} <i class="fas fa-home fa-2x"></i> {{/equal}}
+                {{#equal this.category 1}} <i class="fas fa-shuttle-van fa-2x"></i> {{/equal}}
+                {{#equal this.category 2}} <i class="fas fa-grin-beam fa-2x"></i> {{/equal}}
+                {{#equal this.category 3}} <i class="fas fa-utensils fa-2x"></i> {{/equal}}
+                {{#equal this.category 4}} <i class="fas fa-pen fa-2x"></i> {{/equal}}
+                <p class="mt-2">{{this.merchant}}</p>
+              </li>
+              <li class="col list-group-item align-self-center" style="border: 0px;">
+                <p>{{this.name}} </p>
+                <p>{{this.date}} </p>
+              </li>
+              <li class="col list-group-item align-self-center" style="text-align:right; border: 0px;">
+                <h3>${{this.amount}}</h3>
+              </li>
+              <li class="col-3 list-group-item">
+                <a class="btn btn-outline-primary mb-3" href="/records/{{ this._id }}/edit" style="width: 100px; text-align:left" ><i class="fas fa-pen"></i> Edit</a>
+                <form action="/records/{{ this._id }}?_method=DELETE" method="POST" onsubmit="return confirm('確定要刪除嗎？')">
+                  <button class="btn btn-outline-danger" type="submit" style="width: 100px;text-align:left"><i class="fas fa-trash"></i> Delete</button>
+                </form>
+              </li>
+            </ul>
           </li>
-          <li class="col-4 list-group-item " style="border: 0px;">
-            <p>{{this.name}} </p>
-            <p>{{this.merchant}}</p>
-            <p>{{this.date}} </p>
-          </li>
-          <li class="col-2 list-group-item align-self-center" style="border: 0px;">
-            <h3>{{this.amount}}</h3>
-          </li>
-          <li class="col-2 list-group-item align-self-center" style="border: 0px; text-align: center">
-            <a class="btn btn-success" href="/records/{{ this._id }}/edit"> Edit </a>
-          </li>
-          <li class="col-2 list-group-item align-self-center " style="border: 0px; text-align: center">
-            <form action="/records/{{ this._id }}?_method=DELETE" method="POST" onsubmit="return confirm('確定要刪除嗎？')">
-              <button class="btn btn-danger" type="submit">Delete</button>
-            </form>
-          </li>
+          {{/each}}
         </ul>
-      </li>
-      {{/each}}
-    </ul>
+      </div>
+    </div>
+  
+      
   </div>
+
+ 
+    
+ 
+  
+  
   {{!-- <div class="row justify-content-center" >
     <div class="col-8 mt-3" style="text-align:right;">
       <a class="btn btn-warning" href="/records/new" role="button" style="border: 1px solid gray">Create (新增支出)</a>
