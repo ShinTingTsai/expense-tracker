@@ -5,8 +5,11 @@
 
 ## 介面 (Snapshot)
 ![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_reg.png)
+
 ![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_home.png)
+
 ![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_edit.png)
+
 ![image](https://github.com/ShinTingTsai/expense-tracker/blob/master/image/snapshot_logout.png)
 
 
@@ -42,8 +45,8 @@ npm run dev
 - 請至http://localhost:3000開始使用程式
 
 ## 測試帳號 (Test Account)
-email: user1@example
-password: 12345678
+- email: user1@example
+- password: 12345678
 
 ## 環境建置與需求 (Built with)
 - Node.js v10.15.0
