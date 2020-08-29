@@ -7,7 +7,23 @@ const { all } = require('./home')
 // Filter
 router.get('/', (req, res) => {
   const { month, category } = req.query
+  // console.log('month/category:', month + ' / ' + category)
   const userId = req.user._id
+
+  function getMonthList () {
+    return new Promise(resolve => {
+      const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      const monthList = []
+      for (let i = 0; i < 12; i++) {
+        monthList.push({
+          name: monthName[i],
+          value: i + 1
+        })
+      }
+      if (month !== 'all') monthList[month - 1].check = true
+      resolve(monthList)
+    })
+  }
 
   function getCategoryList () {
     return new Promise(resolve => {
@@ -21,6 +37,10 @@ router.get('/', (req, res) => {
               name: category.name
             })
           })
+          return (list)
+        })
+        .then(list => {
+          if (category !== 'all') list[category].check = true
           resolve(list)
         })
         .catch(error => console.log(error))
@@ -29,7 +49,6 @@ router.get('/', (req, res) => {
 
   function getRecords () {
     return new Promise(resolve => {
-      console.log('category/month/userId:', category + ' / ' + month + ' / ' + userId )
       let recordsAggregate = []
       if (category === 'all' && month === 'all') {
         recordsAggregate = Record.aggregate([
@@ -96,19 +115,17 @@ router.get('/', (req, res) => {
           { $match: { month: Number(month) } }
         ])
       }
-      console.log('recordsAggregate', recordsAggregate)
       resolve(recordsAggregate)
     })
   }
 
-
   async function getRenderData () {
     try {
       const categoryList = await getCategoryList()
+      const monthList = await getMonthList()
       const records = await getRecords()
-      console.log('records2', records)
       const totalAmount = await records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
-      res.render('index', { records, totalAmount, categoryList })
+      res.render('index', { records, totalAmount, categoryList, monthList })
     } catch (err) {
       console.log(err)
     }

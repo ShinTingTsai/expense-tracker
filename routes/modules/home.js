@@ -8,6 +8,20 @@ const Category = require('../../models/category')
 // Read all
 router.get('/', (req, res) => {
   const userId = req.user._id
+
+  function getMonthList() {
+    return new Promise(resolve => {
+      const monthName = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      const monthList = []
+      for (let i = 0; i < 12; i++) {
+        monthList.push({
+          name: monthName[i],
+          value: i + 1
+        })
+      }
+      resolve(monthList)
+    })
+  }
  
   function getCategoryList () {
     return new Promise(resolve => {
@@ -53,10 +67,11 @@ router.get('/', (req, res) => {
 
   async function getRenderData () {
     try {
+      const monthList = await getMonthList()
       const categoryList = await getCategoryList()
       const records = await getRecords(userId)
       const totalAmount = records.map(record => record.amount).reduce((prev, curr) => { return prev + curr }, 0)
-      res.render('index', { records, totalAmount, categoryList })
+      res.render('index', { records, totalAmount, categoryList, monthList })
     } catch (err) {
       console.log(err)
     }
