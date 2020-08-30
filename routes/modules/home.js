@@ -49,7 +49,10 @@ router.get('/', (req, res) => {
         .sort({ date: 'asc' })
         .then(records => {
           records.forEach(record => {
-            const newDate = `${record.date.getFullYear()}-${record.date.getMonth()+1}-${record.date.getDate()}`
+            // const newDate = `${record.date.getFullYear()}-${record.date.getMonth() + 1}-${record.date.getDate()}`
+            const month = record.date.getMonth() + 1
+            const newDate = record.date.getFullYear() + '-' + month + '-' + record.date.getDate()
+            console.log('newDate', newDate)
             newRecords.push({
               name: record.name,
               category: record.category,
