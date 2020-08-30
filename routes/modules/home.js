@@ -50,9 +50,9 @@ router.get('/', (req, res) => {
         .then(records => {
           records.forEach(record => {
             // const newDate = `${record.date.getFullYear()}-${record.date.getMonth() + 1}-${record.date.getDate()}`
-            const oldDate = record.date
-            console.log('typeof oldDate:', typeof oldDate )
-            const newDate = oldDate.getFullYear() + '-' + oldDate.getMonth() + '-' + oldDate.getDate()
+            const oldDate = new Date(record.date)
+            console.log('typeof oldDate:', typeof oldDate)
+            const newDate = `${oldDate.getFullYear()}-${oldDate.getMonth() + 1}-${oldDate.getDate()}`
             console.log('newDate', newDate)
             newRecords.push({
               name: record.name,
