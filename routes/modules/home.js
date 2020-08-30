@@ -50,8 +50,9 @@ router.get('/', (req, res) => {
         .then(records => {
           records.forEach(record => {
             // if use "recode.date.getFullYear()" will encounter "TypeError of getFullYear is not a function..." on Heroku
-            const oldDate = new Date(record.date)
-            const newDate = `${oldDate.getFullYear()}-${oldDate.getMonth() + 1}-${oldDate.getDate()}`
+            // const oldDate = new Date(record.date)
+            // const newDate = `${oldDate.getFullYear()}-${oldDate.getMonth() + 1}-${oldDate.getDate()}`
+            const newDate = `${record.date.getFullYear()}-${record.date.getMonth() + 1}-${record.date.getDate()}`
             newRecords.push({
               name: record.name,
               category: record.category,
