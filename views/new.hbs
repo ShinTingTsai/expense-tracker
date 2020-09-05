@@ -13,7 +13,7 @@
         <label for="name" class="col-sm-2 col-form-label">Name</label>
       </div>
       <div class="input-group col-sm-4">
-        <input type="text" class="form-control" placeholder="Name" aria-label="name" name="name">
+        <input required ype="text" class="form-control" placeholder="支出名稱" aria-label="name" name="name">
       </div>
     </div>
     <div class="row justify-content-center my-3">
@@ -21,7 +21,7 @@
         <label for="merchant" class="col-sm-2 col-form-label">Merchant</label>
       </div>
       <div class="input-group col-sm-4">
-        <input type="text" class="form-control" placeholder="merchant" aria-label="merchant" name="merchant">
+        <input required type="text" class="form-control" placeholder="商店" aria-label="merchant" name="merchant">
       </div>
     </div>
     <div class="row justify-content-center my-3">
@@ -29,11 +29,8 @@
         <label for="date" class="col-sm-2 col-form-label">Date</label>
       </div>
       <div class="input-group col-sm-4">
-        <input type="date" class="form-control" placeholder="2020-05-24" aria-label="date" aria-describedby="basic-addon2"
-          name="date">
-          <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon2"><i class="far fa-calendar-alt"></i></span>
-          </div>
+        <input required type="text" class="form-control" placeholder="格式: 2020-05-24" name="date" onfocus="(this.type='date')">
+        {{!-- <input required type="date" class="form-control" placeholder="2020-05-24" aria-label="date" aria-describedby="basic-addon2" name="date" > --}}
       </div>    
     </div>
     <div class="row justify-content-center my-3">
@@ -53,7 +50,7 @@
         <label for="amount" class="col-sm-2 col-form-label">Amount</label>
       </div>
       <div class="input-group col-sm-4">
-        <input type="number" class="form-control" placeholder="100" aria-label="amount" name='amount' min="0">
+        <input required type="number" class="form-control" aria-label="amount" name='amount' min="0" placeholder="金額">
       </div>
     </div>
     <div class="row justify-content-center my-3">

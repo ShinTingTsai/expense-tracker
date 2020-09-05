@@ -37,7 +37,6 @@
         </form>
       </div>
 
-
       <div class="row justify-content-center">
         <ul class="col list-group">
           {{#each records}}
@@ -59,7 +58,7 @@
                 <h3>${{this.amount}}</h3>
               </li>
               <li class="col-3 list-group-item">
-                <a class="btn btn-outline-primary mb-3" href="/records/{{ this._id }}/edit" style="width: 100px; text-align:left" ><i class="fas fa-pen"></i> Edit</a>
+                <a class="btn btn-outline-primary mb-3" href="/records/edit/{{ this._id }}" style="width: 100px; text-align:left" ><i class="fas fa-pen"></i> Edit</a>
                 <form action="/records/{{ this._id }}?_method=DELETE" method="POST" onsubmit="return confirm('確定要刪除嗎？')">
                   <button class="btn btn-outline-danger" type="submit" style="width: 100px;text-align:left"><i class="fas fa-trash"></i> Delete</button>
                 </form>
@@ -70,18 +69,5 @@
         </ul>
       </div>
     </div>
-  
-      
   </div>
-
- 
-    
- 
-  
-  
-  {{!-- <div class="row justify-content-center" >
-    <div class="col-8 mt-3" style="text-align:right;">
-      <a class="btn btn-warning" href="/records/new" role="button" style="border: 1px solid gray">Create (新增支出)</a>
-    </div>
-  </div> --}}
 </div>

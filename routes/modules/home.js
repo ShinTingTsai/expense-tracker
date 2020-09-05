@@ -51,6 +51,7 @@ router.get('/', (req, res) => {
           records.forEach(record => {
             const newDate = `${record.date.getFullYear()}-${record.date.getMonth() + 1}-${record.date.getDate()}`
             newRecords.push({
+              _id: record._id,
               name: record.name,
               category: record.category,
               date: newDate,

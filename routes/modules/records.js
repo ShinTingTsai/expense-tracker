@@ -28,7 +28,7 @@ router.post('/create', (req, res) => {
 })
 
 // Edit
-router.get('/:id/edit', (req, res) => {
+router.get('/edit/:id', (req, res) => {
   const id = req.params.id
   const categoryList = new Array()
   const promises = []
@@ -50,6 +50,7 @@ router.get('/:id/edit', (req, res) => {
       .lean()
       .then((record) => {
         categoryList[record.category].check = true
+        record.date = `${record.date.getFullYear()}-${record.date.getMonth() + 1}-${record.date.getDate()}`
         res.render('edit', { record, categoryList })
       })
       .catch((error) => console.error(error))
