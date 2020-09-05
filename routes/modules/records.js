@@ -18,7 +18,10 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/create', (req, res) => {
+  // const userId = req.user._id
   const record = req.body
+  record.userId = req.user._id
+  console.log('req.body', req.body)
   return Record.create(record)
     .then(() => res.redirect('/'))
     .catch((error) => console.error(error))
